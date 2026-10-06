@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>شبیه‌ساز تخصصی ردیاب خورشیدی دو محوره و ریزشبکه (Details)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Font */
+      --font-family: 'Vazirmatn', 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --font-weight-normal: 400;
+      --font-weight-bold: 600;
+
+      /* Font Sizes */
+      --font-size-body: 13px;
+      --font-size-label: 14px;
+      --font-size-header: 22px;
+      --font-size-subheader: 15px;
+
+      /* Colors - تم آبی رسمی (Corporate Blue Theme) */
+      --color-background: #f0f4f8; 
+      --color-test-notice-text: #0056b3;
+      --color-test-notice-bg: #e7f1ff;
+      --color-test-notice-border: #b8daff;
+      --color-card-bg: #ffffff;
+      --color-card-border: #d1d9e6;
+      --color-card-shadow: rgba(0, 40, 80, 0.08); 
+      --color-link: #0056b3;
+      --color-header: #1a2b3c; 
+      --color-label: #334e68;
+      --color-input-border: #bcccdc;
+      --color-input-text: #243b53;
+      --color-focus-border: #0056b3;
+
+      /* Buttons */
+      --color-submit-btn-bg: #0056b3; 
+      --color-submit-btn-hover: #003d80; 
+      --color-submit-btn-text: #ffffff;
+
+      --color-error: #d32f2f;
+      --color-required: #d32f2f;
+      --color-header-subtext: #627d98;
+
+      /* Border Radii */
+      --border-radius-card: 6px;
+      --border-radius-input: 4px;
+
+      /* Spacing */
+      --padding-card: 24px;
+      --margin-bottom-card: 20px;
+      --box-shadow-card: 0px 4px 18px 0px var(--color-card-shadow); 
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-family);
+      background-color: var(--color-background);
+      color: var(--color-header);
+      font-size: var(--font-size-body);
+      line-height: 1.6;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 24px 16px; }
+    header { background: #fff; border-bottom: 1px solid var(--color-card-border); padding: 16px 0; }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand-icon { width: 44px; height: 44px; border-radius: 6px; background: var(--color-submit-btn-bg); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+    .brand h1 { font-size: 18px; font-weight: 700; color: var(--color-header); }
+    .brand p { font-size: 12px; color: var(--color-header-subtext); }
+
+    .nav-tabs { display: flex; gap: 8px; background: #e2e8f0; padding: 4px; border-radius: 6px; }
+    .nav-tab { padding: 8px 16px; font-size: 12px; font-weight: 600; border-radius: 4px; text-decoration: none; color: var(--color-label); transition: 0.2s; }
+    .nav-tab.active { background: var(--color-submit-btn-bg); color: #fff; }
+
+    .card { background: var(--color-card-bg); border: 1px solid var(--color-card-border); border-radius: var(--border-radius-card); padding: var(--padding-card); margin-bottom: var(--margin-bottom-card); box-shadow: var(--box-shadow-card); }
+    .card-title { font-size: 15px; font-weight: 700; color: var(--color-header); margin-bottom: 12px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+
+    .sim-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 900px) { .sim-grid { grid-template-columns: 1fr; } }
+
+    .canvas-container { background: #0f172a; border-radius: 6px; overflow: hidden; position: relative; text-align: center; }
+    canvas { display: block; width: 100%; max-width: 520px; height: 260px; margin: 0 auto; }
+
+    .telemetry-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; background: #f8fafc; padding: 12px; border-top: 1px solid #e2e8f0; text-align: center; }
+    .tel-item span { display: block; font-size: 11px; color: var(--color-header-subtext); }
+    .tel-item strong { font-size: 14px; font-family: monospace; color: var(--color-header); }
+
+    .time-slider-card { background: #fff; border: 1px solid var(--color-card-border); border-radius: 6px; padding: 16px; margin-bottom: 16px; }
+    .controls-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .btn-action { background: var(--color-submit-btn-bg); color: #fff; border: none; padding: 6px 14px; border-radius: 4px; cursor: pointer; font-family: inherit; font-size: 12px; font-weight: 600; }
+    .btn-action:hover { background: var(--color-submit-btn-hover); }
+
+    .tilt-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 12px; }
+    .tilt-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px; text-align: center; }
+    .tilt-box h5 { font-size: 12px; color: var(--color-header-subtext); margin-bottom: 4px; }
+    .tilt-box b { font-size: 16px; font-family: monospace; color: var(--color-submit-btn-bg); }
+
+    .select-prov { padding: 6px 12px; border: 1px solid var(--color-input-border); border-radius: 4px; font-family: inherit; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-inner">
+      <div class="brand">
+        <div class="brand-icon">⚙️</div>
+        <div>
+          <h1>شبیه‌ساز تخصصی فیزیکی ردیاب خورشیدی (Details)</h1>
+          <p>شبیه‌سازی ۲۴ ساعته جهت‌گیری دکل، زوایای فراز و سمت و توان ریزشبکه</p>
+        </div>
+      </div>
+      <div class="nav-tabs">
+        <a href="index.html" class="nav-tab">نمای کلی استان‌ها (Index)</a>
+        <a href="details.html" class="nav-tab active">شبیه‌ساز تفصیلی (Details)</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Top Configuration Header -->
+    <div class="card" style="padding: 16px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <label style="font-weight: 700; font-size: 13px;">انتخاب استان:</label>
+          <select id="provSelect" class="select-prov">
+            <option value="Tehran">تهران (Tehran) - ۳۵.۶۹°N, ۵۱.۳۹°E</option>
+            <option value="Isfahan">اصفهان (Isfahan) - ۳۲.۶۵°N, ۵۱.۶۷°E</option>
+            <option value="Fars">فارس (Shiraz) - ۲۹.۵۹°N, ۵۲.۵۸°E</option>
+            <option value="Khuzestan">خوزستان (Ahvaz) - ۳۱.۳۲°N, ۴۸.۶۷°E</option>
+            <option value="Razavi Khorasan">خراسان رضوی (Mashhad) - ۳۶.۲۶°N, ۵۹.۶۲°E</option>
+            <option value="East Azerbaijan">آذربایجان شرقی (Tabriz) - ۳۸.۰۸°N, ۴۶.۲۹°E</option>
+            <option value="Yazd">یزد (Yazd) - ۳۱.۹۰°N, ۵۴.۳۶°E</option>
+            <option value="Kerman">کرمان (Kerman) - ۳۰.۲۸°N, ۵۷.۰۸°E</option>
+            <option value="Hormozgan">هرمزگان (Bandar Abbas) - ۲۷.۱۸°N, ۵۶.۲۷°E</option>
+          </select>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <label style="font-weight: 700; font-size: 13px;">فصل شبیه‌سازی:</label>
+          <select id="seasonSelect" class="select-prov">
+            <option value="spring">بهار (۱۵ اردیبهشت - 5 May)</option>
+            <option value="summer">تابستان (۱۵ مرداد - 6 Aug)</option>
+            <option value="autumn">پاییز (۱۵ آبان - 6 Nov)</option>
+            <option value="winter">زمستان (۱۵ بهمن - 4 Feb)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Simulator View -->
+    <div class="sim-grid">
+      <!-- 3D Canvas Rig -->
+      <div class="card" style="padding: 0; overflow: hidden;">
+        <div style="padding: 14px 18px; background: #1a2b3c; color: #fff; font-weight: 700; font-size: 13px; display: flex; justify-content: space-between;">
+          <span>شبیه‌ساز فیزیکی آرایه و زاویه دکل ردیاب</span>
+          <span id="sunStatusBadge" style="background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 4px; font-size: 11px;">☀️ روشنایی روز</span>
+        </div>
+        <div class="canvas-container">
+          <canvas id="rigCanvas" width="480" height="260"></canvas>
+        </div>
+        <div class="telemetry-row">
+          <div class="tel-item">
+            <span>فراز خورشید (Alt)</span>
+            <strong id="telAlt">70.6°</strong>
+          </div>
+          <div class="tel-item">
+            <span>سمت خورشید (Az)</span>
+            <strong id="telAz">179.2°</strong>
+          </div>
+          <div class="tel-item">
+            <span>دوران افقی (Rot Z)</span>
+            <strong id="telRotZ" style="color: #0056b3;">0.8°</strong>
+          </div>
+          <div class="tel-item">
+            <span>شیب عمودی (Tilt X)</span>
+            <strong id="telRotX" style="color: #0056b3;">19.4°</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Time Scrubber & Seasonal Angles -->
+      <div style="display: flex; flex-direction: column; justify-content: space-between;">
+        <div class="time-slider-card">
+          <div class="controls-row">
+            <div>
+              <span style="font-size: 22px; font-weight: 700; font-family: monospace; color: var(--color-header);" id="hourDisplay">12:00</span>
+              <span style="font-size: 11px; color: var(--color-header-subtext); margin-right: 8px;">ساعت ظهر خورشیدی</span>
+            </div>
+            <div style="display: flex; gap: 6px;">
+              <button class="btn-action" id="btnPlay">پخش انیمیشن ▶</button>
+              <button class="btn-action" id="btnNoon" style="background: #475569;">ظهر خورشیدی</button>
+            </div>
+          </div>
+          <input type="range" id="hourSlider" min="0" max="23" value="12" style="width: 100%; height: 6px; cursor: pointer;">
+        </div>
+
+        <!-- Seasonal Tilt Card -->
+        <div class="card">
+          <div class="card-title">
+            <span>شیب بهینه فصلی استاندارد (تهران)</span>
+            <span style="font-size: 12px; color: var(--color-submit-btn-bg);">میانگین سالانه: ۳۴°</span>
+          </div>
+          <div class="tilt-grid">
+            <div class="tilt-box">
+              <h5>بهار (Spring)</h5>
+              <b id="tiltSpring">9°</b>
+            </div>
+            <div class="tilt-box">
+              <h5>تابستان (Summer)</h5>
+              <b id="tiltSummer">21°</b>
+            </div>
+            <div class="tilt-box">
+              <h5>پاییز (Autumn)</h5>
+              <b id="tiltAutumn">59°</b>
+            </div>
+            <div class="tilt-box">
+              <h5>زمستان (Winter)</h5>
+              <b id="tiltWinter">50°</b>
+            </div>
+          </div>
+        </div>
+
+        <!-- Telemetry Summary -->
+        <div class="card" style="padding: 16px;">
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center;">
+            <div style="background: #e7f1ff; padding: 10px; border-radius: 4px;">
+              <span style="font-size: 11px; color: #0056b3; display: block;">تابش ردیاب (POA)</span>
+              <strong style="font-size: 16px; color: #0056b3; font-family: monospace;" id="dispPoa">1037 W/m²</strong>
+            </div>
+            <div style="background: #fef3c7; padding: 10px; border-radius: 4px;">
+              <span style="font-size: 11px; color: #92400e; display: block;">توان خورشیدی PV</span>
+              <strong style="font-size: 16px; color: #92400e; font-family: monospace;" id="dispPv">4.43 kW</strong>
+            </div>
+            <div style="background: #dcfce7; padding: 10px; border-radius: 4px;">
+              <span style="font-size: 11px; color: #166534; display: block;">شارژ باتری SoC</span>
+              <strong style="font-size: 16px; color: #166534; font-family: monospace;" id="dispSoc">15.4 kWh</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>سامانه پایش ردیاب خورشیدی ۳۱ استان ایران | شبیه‌ساز فیزیکی دو محوره | تم سازمانی آبی (Corporate Blue)</p>
+    </div>
+  </footer>
+
+  <script>
+    const canvas = document.getElementById('rigCanvas');
+    const ctx = canvas.getContext('2d');
+    const hourSlider = document.getElementById('hourSlider');
+    const hourDisplay = document.getElementById('hourDisplay');
+    const btnPlay = document.getElementById('btnPlay');
+    const btnNoon = document.getElementById('btnNoon');
+    let currentHour = 12;
+    let isPlaying = false;
+    let playInterval = null;
+
+    function drawRig(h) {
+      const w = canvas.width;
+      const height = canvas.height;
+      ctx.clearRect(0, 0, w, height);
+
+      const isDay = h >= 6 && h <= 18;
+      const alt = isDay ? Math.sin((h - 6) / 12 * Math.PI) * 72 : -20;
+      const az = 75 + (h / 24) * 210;
+      const rotZ = 180 - az;
+      const rotX = isDay ? (90 - alt) : 0;
+
+      // Update text
+      document.getElementById('telAlt').innerText = alt > 0 ? alt.toFixed(1) + '°' : '0.0°';
+      document.getElementById('telAz').innerText = az.toFixed(1) + '°';
+      document.getElementById('telRotZ').innerText = rotZ.toFixed(1) + '°';
+      document.getElementById('telRotX').innerText = rotX.toFixed(1) + '°';
+      document.getElementById('dispPoa').innerText = isDay ? Math.round(alt * 14.5) + ' W/m²' : '0 W/m²';
+      document.getElementById('dispPv').innerText = isDay ? (alt * 0.06).toFixed(2) + ' kW' : '0.00 kW';
+
+      // Sky
+      const skyGrad = ctx.createLinearGradient(0, 0, 0, height);
+      if (isDay) {
+        skyGrad.addColorStop(0, '#0284c7');
+        skyGrad.addColorStop(1, '#e0f2fe');
+      } else {
+        skyGrad.addColorStop(0, '#0a192f');
+        skyGrad.addColorStop(1, '#1e293b');
+      }
+      ctx.fillStyle = skyGrad;
+      ctx.fillRect(0, 0, w, height);
+
+      const cx = w / 2;
+      const cy = height / 2 + 35;
+
+      // Ground plane
+      ctx.beginPath();
+      ctx.ellipse(cx, cy + 30, 160, 45, 0, 0, Math.PI * 2);
+      ctx.fillStyle = isDay ? '#94a3b8' : '#334155';
+      ctx.fill();
+
+      // Sun
+      if (isDay) {
+        const sunX = cx - (h - 12) * 22;
+        const sunY = cy - (alt / 80) * 120 - 20;
+        ctx.beginPath();
+        ctx.arc(sunX, sunY, 14, 0, Math.PI * 2);
+        ctx.fillStyle = '#ffea00';
+        ctx.fill();
+        ctx.strokeStyle = '#f59e0b';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Ray to tracker
+        ctx.beginPath();
+        ctx.moveTo(sunX, sunY);
+        ctx.lineTo(cx, cy - 35);
+        ctx.strokeStyle = 'rgba(255, 235, 59, 0.4)';
+        ctx.setLineDash([4, 4]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+
+      // Base mast
+      ctx.fillStyle = '#475569';
+      ctx.fillRect(cx - 7, cy - 35, 14, 65);
+
+      // Gimbal joint
+      ctx.beginPath();
+      ctx.arc(cx, cy - 35, 11, 0, Math.PI * 2);
+      ctx.fillStyle = '#0056b3';
+      ctx.fill();
+
+      // Panel
+      ctx.save();
+      ctx.translate(cx, cy - 35);
+      const angleRad = (rotZ * Math.PI) / 180;
+      ctx.rotate(Math.sin(angleRad) * 0.35);
+
+      const pW = 110;
+      const pH = 55 * Math.cos((rotX * Math.PI) / 180);
+      ctx.fillStyle = isDay ? '#1d4ed8' : '#1e293b';
+      ctx.strokeStyle = '#e2e8f0';
+      ctx.lineWidth = 2;
+      ctx.fillRect(-pW / 2, -pH / 2, pW, pH);
+      ctx.strokeRect(-pW / 2, -pH / 2, pW, pH);
+      ctx.restore();
+    }
+
+    function setHour(h) {
+      currentHour = h;
+      hourSlider.value = h;
+      hourDisplay.innerText = h.toString().padStart(2, '0') + ':00';
+      drawRig(h);
+    }
+
+    hourSlider.addEventListener('input', (e) => {
+      setHour(parseInt(e.target.value));
+    });
+
+    btnPlay.addEventListener('click', () => {
+      isPlaying = !isPlaying;
+      if (isPlaying) {
+        btnPlay.innerText = 'توقف ⏸';
+        playInterval = setInterval(() => {
+          setHour((currentHour + 1) % 24);
+        }, 800);
+      } else {
+        btnPlay.innerText = 'پخش انیمیشن ▶';
+        clearInterval(playInterval);
+      }
+    });
+
+    btnNoon.addEventListener('click', () => setHour(12));
+
+    drawRig(12);
+  </script>
+</body>
+</html>

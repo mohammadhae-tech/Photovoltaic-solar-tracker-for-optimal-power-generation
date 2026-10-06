@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+:root {
+  /* Font */
+  --font-family: 'Vazirmatn', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-weight-normal: 400;
+  --font-weight-bold: 600;
+
+  /* Font Sizes */
+  --font-size-body: 13px;
+  --font-size-label: 14px;
+  --font-size-test-notice: 12px;
+  --font-size-input: 14px;
+  --font-size-header: 22px;
+  --font-size-paragraph: 14px;
+  --font-size-link: 13px;
+  --font-size-error: 12px;
+  --font-size-html-h1: 30px;
+  --font-size-html-h2: 24px;
+  --font-size-html-h3: 18px;
+  --font-size-html-h4: 16px;
+  --font-size-html-h5: 14px;
+  --font-size-html-h6: 12px;
+  --font-size-subheader: 15px;
+
+  /* Colors - تم آبی رسمی (Corporate Blue Theme) */
+  --color-background: #f0f4f8; 
+  --color-test-notice-text: #0056b3;
+  --color-test-notice-bg: #e7f1ff;
+  --color-test-notice-border: #b8daff;
+  --color-card-bg: #ffffff;
+  --color-card-border: #d1d9e6;
+  --color-card-shadow: rgba(0, 40, 80, 0.08); 
+  --color-link: #0056b3;
+  --color-header: #1a2b3c; 
+  --color-label: #334e68;
+  --color-input-border: #bcccdc;
+  --color-input-text: #243b53;
+  --color-focus-border: #0056b3;
+
+  /* Buttons */
+  --color-submit-btn-bg: #0056b3; 
+  --color-submit-btn-hover: #003d80; 
+  --color-submit-btn-text: #ffffff;
+
+  --color-error: #d32f2f;
+  --color-required: #d32f2f;
+  --color-clear-button-bg: #627d98;
+  --color-html-text: #486581;
+  --color-html-link: #0056b3;
+  --color-header-subtext: #627d98;
+
+  /* Border Radii */
+  --border-radius-card: 6px;
+  --border-radius-input: 6px;
+  --border-radius-clear-btn: 6px;
+  --card-border-radius: 6px;
+
+  /* Spacing */
+  --padding-container-top: 32px;
+  --padding-card: 28px;
+  --padding-test-notice-vertical: 14px;
+  --padding-test-notice-horizontal: 24px;
+  --margin-bottom-card: 20px;
+  --padding-form-input: 12px;
+  --card-padding: 28px;
+  --card-margin-bottom: 20px;
+
+  /* Dimensions */
+  --container-width: 480px; 
+  --submit-btn-height: 44px;
+  --checkbox-size: 18px;
+
+  /* Others */
+  --box-shadow-card: 0px 4px 18px 0px var(--color-card-shadow); 
+  --opacity-placeholder: 0.6;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--color-background);
+  color: var(--color-header);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #e2e8f0;
+}
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}

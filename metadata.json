@@ -1,0 +1,6 @@
+{
+  "name": "Iran Solar Tracker & Microgrid Simulator",
+  "description": "سامانه جامع پایش، تحلیل و شبیه‌سازی ردیاب خورشیدی دو محوره و ریزشبکه ۳۱ استان ایران",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
